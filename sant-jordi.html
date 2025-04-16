@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>Per la pesadeta 💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to top right, #ffe6f0, #fff0f5);
+      position: relative;
+    }
+
+    #btn {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      background-color: #ff69b4;
+      color: white;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      z-index: 10;
+    }
+
+    #btn:hover {
+      background-color: #ff1493;
+    }
+
+    #rosa {
+      margin-top: 30px;
+      display: none;
+      animation: fadeIn 2s ease-in-out forwards;
+      z-index: 10;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .cor {
+      position: absolute;
+      color: pink;
+      font-size: 2rem;
+      animation: flotar 5s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes flotar {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Helou 😊</h1>
+  <p>Tinc una coseta per tu...</p>
+  <button id="btn">Toca aquí 🌹</button>
+
+  <div id="rosa">
+    <img src="rosa.png" alt="Rosa" width="200">
+    <p>Feliç Sant Jordi 💖</p>
+  </div>
+
+  <!-- Miaus -->
+  <audio id="miau1" src="https://www.soundjay.com/cat/cat-meow-1.mp3" preload="auto"></audio>
+  <audio id="miau2" src="https://www.soundjay.com/cat/cat-meow-2.mp3" preload="auto"></audio>
+  <audio id="miau3" src="https://www.soundjay.com/cat/cat-meow-3.mp3" preload="auto"></audio>
+
+  <script>
+    const btn = document.getElementById("btn");
+    const rosa = document.getElementById("rosa");
+    const miaus = [
+      document.getElementById("miau1"),
+      document.getElementById("miau2"),
+      document.getElementById("miau3")
+    ];
+
+    function crearCor() {
+      const cor = document.createElement("div");
+      cor.classList.add("cor");
+      cor.textContent = "💖";
+      cor.style.left = Math.random() * 100 + "vw";
+      cor.style.fontSize = (Math.random() * 1.5 + 1) + "rem";
+      document.body.appendChild(cor);
+      setTimeout(() => cor.remove(), 5000);
+    }
+
+    btn.addEventListener("click", () => {
+      rosa.style.display = "block";
+      btn.style.display = "none";
+
+      // "Desbloquear" el sonido con una interacción directa
+      miaus.forEach(m => {
+        m.volume = 0;
+        m.play().then(() => {
+          m.pause();
+          m.currentTime = 0;
+          m.volume = 1;
+        });
+      });
+
+      // Lanzar miaus con delay
+      setTimeout(() => miaus[0].play(), 100);
+      setTimeout(() => miaus[1].play(), 1200);
+      setTimeout(() => miaus[2].play(), 2400);
+
+      // Corazones animados
+      setInterval(crearCor, 500);
+    });
+  </script>
+
+  <script>
+    const pwd = prompt("Introdueix la contrasenya:");
+    if (pwd !== "txellpesada") {
+      document.body.innerHTML = "Accés denegat";
+    }
+  </script>
+  
+</body>
+</html>
